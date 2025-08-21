@@ -25,14 +25,16 @@ class WebViewScreen extends StatelessWidget {
           },
           child: Scaffold(
             backgroundColor: CustomColors.white,
-            body: Stack(
-              children: [
-                Positioned.fill(
-                  child: WebViewWidget(controller: controller.webController),
-                ),
-                if (controller.isLoading)
-                  const Center(child: CircularProgressIndicator()),
-              ],
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: WebViewWidget(controller: controller.webController),
+                  ),
+                  if (controller.isLoading)
+                    const Center(child: CircularProgressIndicator()),
+                ],
+              ),
             ),
           ),
         );
