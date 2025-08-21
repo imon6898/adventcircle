@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tests/app/utils/constants/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'controller/web_view_screen_controller.dart';
+import 'controller/inapp_web_view_screen_controller.dart';
 
-class WebViewScreen extends StatelessWidget {
-  const WebViewScreen({super.key});
+class InappWebViewScreen extends StatelessWidget {
+  const InappWebViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<WebViewScreenController>(
+    return GetBuilder<InappWebViewScreenController>(
       // Use Get.find if you registered the controller in a Binding.
       // Otherwise, replace with: init: Get.put(WebViewScreenController()),
-      init: Get.find<WebViewScreenController>(),
+      init: Get.find<InappWebViewScreenController>(),
       builder: (controller) {
         return WillPopScope(
           onWillPop: () async {
@@ -25,15 +25,7 @@ class WebViewScreen extends StatelessWidget {
           },
           child: Scaffold(
             backgroundColor: CustomColors.white,
-            body: Stack(
-              children: [
-                Positioned.fill(
-                  child: WebViewWidget(controller: controller.webController),
-                ),
-                if (controller.isLoading)
-                  const Center(child: CircularProgressIndicator()),
-              ],
-            ),
+
           ),
         );
       },

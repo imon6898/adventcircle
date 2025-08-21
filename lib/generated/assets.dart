@@ -11,7 +11,7 @@ class Assets {
   static const String constantsAppColors = 'lib/app/utils/constants/app_colors.dart';
   static const String constantsAppFonts = 'lib/app/utils/constants/app_fonts.dart';
   static const String constantsAppText = 'lib/app/utils/constants/app_text.dart';
-  static const String controllerWebViewScreenController = 'lib/app/feature/web_view/controller/web_view_screen_controller.dart';
+  static const String controllerWebViewScreenController = 'lib/app/feature/web_view/controller/inapp_web_view_screen_controller.dart';
   static const String controllersAuthController = 'lib/app/feature/auth/controllers/auth_controller.dart';
   static const String controllersDashboardController = 'lib/app/feature/dashboard/controllers/dashboard_controller.dart';
   static const String controllersFavoriteController = 'lib/app/feature/favorites/controllers/favorite_controller.dart';
@@ -70,7 +70,7 @@ class Assets {
   static const String themesLightTheme = 'lib/app/themes/light_theme.dart';
   static const String utilsMainUtils = 'lib/app/utils/main_utils.dart';
   static const String utilsValidator = 'lib/app/utils/validator.dart';
-  static const String webViewWebViewScreen = 'lib/app/feature/web_view/web_view_screen.dart';
+  static const String webViewWebViewScreen = 'lib/app/feature/web_view/inapp_web_view_screen.dart';
   static const String widgetsCustomAppbar = 'lib/app/widgets/custom_appbar.dart';
   static const String widgetsCustomClickableTextPrompt = 'lib/app/widgets/custom_clickable_text_prompt.dart';
   static const String widgetsCustomPrimaryButton = 'lib/app/widgets/custom_primary_button.dart';

@@ -10,13 +10,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:tests/app/feature/location_permission_service.dart';
 import 'app/bindings/view_model_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
 import 'app/services/cache_manager.dart';
 import 'app/themes/app_theme.dart';
 import 'app/utils/constants/app_text.dart';
+
+
 
 class MyHttpOverrides extends HttpOverrides{
   @override
@@ -25,6 +26,7 @@ class MyHttpOverrides extends HttpOverrides{
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
+
 
 Future<void> main() async {
 
@@ -72,11 +74,18 @@ class MyApp extends StatelessWidget {
       //final isDarkMode = Get.find<HomeController>().isDarkMode.value;
 
       // Update the status bar style based on theme
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      SystemChrome.setSystemUIOverlayStyle(
+
+          SystemUiOverlayStyle(
         statusBarColor: Colors.transparent, // Transparent status bar
+
         //statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark, // Icon color based on theme
         //statusBarBrightness: isDarkMode ? Brightness.light : Brightness.dark, // Light status bar for dark icons
       ));
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: [
+        SystemUiOverlay.top, // Show the status bar
+        SystemUiOverlay.bottom, // Show the navigation bar
+      ]);
 
       return ScreenUtilInit(
         designSize: const Size(360, 690),
