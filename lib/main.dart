@@ -1,14 +1,7 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:isolate';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'app/bindings/view_model_binding.dart';
 import 'app/routes/app_pages.dart';
@@ -29,34 +22,20 @@ class MyHttpOverrides extends HttpOverrides{
 
 
 Future<void> main() async {
-
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Color(0xFFFFFFFF),
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   await ScreenUtil.ensureScreenSize();
   if (Platform.isIOS || Platform.isAndroid) {
     HttpOverrides.global = MyHttpOverrides();
   }
-  if (!kIsWeb) {
-    await dotenv.load(fileName: ".env");
-  }
 
   await CacheManager.init();
-
-
-  // bool granted = await LocationPermissionService.requestLocationPermission();
-  // if (granted) {
-  //   final position = await LocationPermissionService.getCurrentLocation(); // ✅ No error
-  //   if (position != null) {
-  //     debugPrint("Latitude: ${position.latitude}, Longitude: ${position.longitude}");
-  //   }
-  // }
-
-  //await _handleLocationPermissionAndLog();
-
-
-  //Get.put(HomeController());
   runApp(const MyApp());
 }
 
@@ -69,24 +48,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //return Obx(() {
-      // Access the current theme state
-      //final isDarkMode = Get.find<HomeController>().isDarkMode.value;
-
-      // Update the status bar style based on theme
-      SystemChrome.setSystemUIOverlayStyle(
-
-          SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // Transparent status bar
-
-        //statusBarIconBrightness: isDarkMode ? Brightness.light : Brightness.dark, // Icon color based on theme
-        //statusBarBrightness: isDarkMode ? Brightness.light : Brightness.dark, // Light status bar for dark icons
-      ));
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: [
-        SystemUiOverlay.top, // Show the status bar
-        SystemUiOverlay.bottom, // Show the navigation bar
-      ]);
-
       return ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
@@ -95,13 +56,12 @@ class MyApp extends StatelessWidget {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(textScaler: TextScaler.noScaling),
             child: GetMaterialApp(
-              builder: FToastBuilder(),
               debugShowCheckedModeBanner: false,
               translations: TextConst(),
-              locale: _getLocaleFromCache(),
+              locale: Locale('en', 'US'),
               fallbackLocale: const Locale('en', 'US'),
               initialBinding: ViewModelBinding(),
-              title: 'MDF',
+              title: 'AC',
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               //themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
@@ -112,20 +72,6 @@ class MyApp extends StatelessWidget {
         },
       );
     //});
-  }
-
-
-  Locale _getLocaleFromCache() {
-    String? langId = CacheManager.getLanguageId.toString();
-    log("Cached language ID: $langId");
-
-    if (langId == '2') {
-      log("Setting locale to Bengali (bn-BD)");
-      return const Locale('bn', 'BD');
-    }
-
-    log("Setting locale to English (en-US)");
-    return const Locale('en', 'US');
   }
 }
 

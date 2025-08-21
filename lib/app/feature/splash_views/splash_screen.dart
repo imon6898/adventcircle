@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../themes/app_theme.dart';
@@ -8,6 +9,8 @@ import '../../utils/constants/app_fonts.dart';
 import 'controllers/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SplashScreenController>(builder: (controller) {
@@ -18,17 +21,15 @@ class SplashScreen extends StatelessWidget {
 
             Positioned.fill(
               child: Container(
-                color: CustomColors.white, // Adding 60% opacity to the blue overlay
+                color: CustomColors.white,
               ),
             ),
-
-            // Animated Icon in the Center
             Center(
               child: ScaleTransition(
                 scale: controller.scaleAnimation,
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  width: 300.w, // Adjust size to fit the image with padding
+                  width: 300.w,
                   height: 400.h,
                   alignment: Alignment.center,
                   child: Image.asset(

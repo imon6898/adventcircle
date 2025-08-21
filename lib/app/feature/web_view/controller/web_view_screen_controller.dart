@@ -6,21 +6,20 @@ class WebViewScreenController extends GetxController {
   late WebViewController webController;
   bool isLoading = true;
   String title = '';
-  String url = '';
 
   @override
   void onInit() {
     super.onInit();
-
-    title = (Get.arguments?[0] ?? 'WebView').toString();
-    url = (Get.arguments?[1] ?? '').toString();
-
     webController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
+      ..setUserAgent(
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+              "AppleWebKit/537.36 (KHTML, like Gecko) "
+              "Chrome/116.0.0.0 Safari/537.36"
+      )
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (_) {},
           onPageStarted: (_) {
             isLoading = true;
             update();
@@ -34,7 +33,8 @@ class WebViewScreenController extends GetxController {
           },
         ),
       )
-      ..loadRequest(Uri.parse(url));
+      ..loadRequest(Uri.parse("https://adventcircle.com/auth/login"));
+
   }
 
   Future<void> navigateBack() async {

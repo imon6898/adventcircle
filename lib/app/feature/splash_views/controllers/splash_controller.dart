@@ -2,7 +2,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_routes.dart';
@@ -32,7 +31,6 @@ class SplashScreenController extends GetxController with GetTickerProviderStateM
     animationController.forward();
 
     Future.delayed(const Duration(seconds: 3), () async {
-      String? token = CacheManager.token;
       String? startedId = CacheManager.getStartedId;
       
       if (startedId == "1") {

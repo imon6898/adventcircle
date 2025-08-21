@@ -1,38 +1,70 @@
+import 'dart:ui' as ui;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tests/app/utils/constants/app_colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'controller/web_view_screen_controller.dart';
 
-class WebViewScreen extends StatelessWidget {
+class WebViewScreen extends StatefulWidget {
   const WebViewScreen({super.key});
 
   @override
+  State<WebViewScreen> createState() => _WebViewScreenState();
+}
+
+class _WebViewScreenState extends State<WebViewScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Color(0xFF006466),
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
+  }
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<WebViewScreenController>(
-      // Use Get.find if you registered the controller in a Binding.
-      // Otherwise, replace with: init: Get.put(WebViewScreenController()),
       init: Get.find<WebViewScreenController>(),
       builder: (controller) {
-        return WillPopScope(
-          onWillPop: () async {
+        return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) async {
             final canGoBack = await controller.webController.canGoBack();
             if (canGoBack) {
               await controller.webController.goBack();
-              return false; // don't pop route, just go back in web history
+              return;
             }
-            return true; // no web history -> pop route
+            return;
           },
           child: Scaffold(
             backgroundColor: CustomColors.white,
-            body: Stack(
-              children: [
-                Positioned.fill(
-                  child: WebViewWidget(controller: controller.webController),
-                ),
-                if (controller.isLoading)
-                  const Center(child: CircularProgressIndicator()),
-              ],
+            body: SafeArea(
+              top: true,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: SizedBox(
+                      width: Get.width,
+                      height: Get.height,
+                      child: WebViewWidget(
+                        controller: controller.webController,
+                      ),
+                    ),
+                  ),
+
+                  if (controller.isLoading)
+                    const Center(child: CircularProgressIndicator()),
+                ],
+              ),
             ),
           ),
         );

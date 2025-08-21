@@ -1,11 +1,7 @@
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-
 import 'package:tests/app/feature/getstarted/controllers/getstarted_controller.dart';
 import 'package:tests/app/feature/splash_views/controllers/splash_controller.dart';
 import 'package:tests/app/feature/web_view/controller/web_view_screen_controller.dart';
-
-import '../feature/inapp_web_view/controller/inapp_web_view_screen_controller.dart';
 
 
 class ViewModelBinding extends Bindings {
@@ -15,7 +11,6 @@ class ViewModelBinding extends Bindings {
     Get.lazyPut<SplashScreenController>(() => SplashScreenController(), fenix: true);
     Get.lazyPut<GetstartedController>(() => GetstartedController(), fenix: true);
     Get.lazyPut<WebViewScreenController>(() => WebViewScreenController(), fenix: true);
-    Get.lazyPut<InappWebViewScreenController>(() => InappWebViewScreenController(), fenix: true);
 
 
   }

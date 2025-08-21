@@ -39,8 +39,7 @@ class GetstartedController extends GetxController {
   Future<void> getStarted() async {
     await CacheManager.setStartedId("1");
     Get.offAllNamed(
-      AppRoutes.WebViewScreen,
-      arguments: ["webView".tr, "https://adventcircle.com/"],
+      AppRoutes.WebViewScreen
     );
   }
 
